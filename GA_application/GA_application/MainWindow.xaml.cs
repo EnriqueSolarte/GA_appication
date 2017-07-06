@@ -25,6 +25,8 @@ namespace GA_application
             InitializeComponent();
             GeneticAlgorithm GA = new GeneticAlgorithm();
 
+
+            GA.Run();
             
         }
     }

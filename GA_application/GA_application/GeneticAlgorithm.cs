@@ -12,20 +12,14 @@ namespace GA_application
         public Fitness fitness { get; set; }
         public double pCrossover { get; set; }
         public double pMutation { get; set; }
-        public double numberGenerations { get; set; }
-
-
-        
+        public double generationNumber{ get; set; }
+    
         public GeneticAlgorithm()
         {
            
         }
 
-        private double[] EvaluationFitness()
-        {
-            throw new NotImplementedException();
-        }
-
+     
         private void RouletteWheelSelection()
         {
             Random rand = new Random();
@@ -86,7 +80,7 @@ namespace GA_application
             }
         }
 
-        private void Run()
+        public void Run()
         {
 
         }
