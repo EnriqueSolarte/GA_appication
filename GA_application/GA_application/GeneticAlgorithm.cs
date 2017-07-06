@@ -50,6 +50,20 @@ namespace GA_application
 
         private void Crossover()
         {
+            Random rnd = new Random();
+            
+            for(int i=0; i<features.populationSize; i=i+2)
+            {
+                if(rnd.NextDouble() <= pCrossover)
+                {
+                    for(int j=0; j<features.numberFeatures;j++)
+                    {
+                        double aux = rnd.NextDouble();
+                        features.population[i, j] = (1 - aux) * features.population[i, j] + aux * features.population[i + 1, j];
+                        features.population[i + 1, j] = aux * features.population[i, j] + (1 - aux) * features.population[i + 1, j];
+                    }
+                }
+            }
         }
 
         private void Mutation()
