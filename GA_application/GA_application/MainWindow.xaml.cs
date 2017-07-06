@@ -23,6 +23,10 @@ namespace GA_application
         public MainWindow()
         {
             InitializeComponent();
+            GeneticAlgorithm GA = new GeneticAlgorithm();
+
+            
         }
     }
+
 }
