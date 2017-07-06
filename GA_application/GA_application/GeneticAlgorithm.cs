@@ -18,6 +18,7 @@ namespace GA_application
         public GeneticAlgorithm(int population, double[,] rangeOfFeatures)
         {
             features = new Features(population, rangeOfFeatures);
+            fitness = new Fitness(300, population);
         }
    
         private void RouletteWheelSelection()

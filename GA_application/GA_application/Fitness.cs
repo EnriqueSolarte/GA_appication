@@ -10,10 +10,12 @@ namespace GA_application
 
         private double constantFitness { set; get; }
 
-        public Fitness(int _constantFitness)
+        public Fitness(int _constantFitness, int population)
         {
             constantFitness = _constantFitness;
+            fitnessValue = new double[population];
         } 
+
 
     }
 }
