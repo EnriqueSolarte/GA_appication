@@ -8,17 +8,12 @@ namespace GA_application
         public double[] fitnessValue { get; }
         public int indexFitnessMaximo { get;}
 
-        private double _constantFitness { set; get; }
+        private double constantFitness { set; get; }
 
-        public Fitness(int constantFitness)
+        public Fitness(int _constantFitness)
         {
-            _constantFitness = constantFitness;
+            constantFitness = _constantFitness;
         } 
 
-        public double[] Evaluation()
-        {
-            double[] _fitness = new double[3];
-            return _fitness;
-        }
     }
 }

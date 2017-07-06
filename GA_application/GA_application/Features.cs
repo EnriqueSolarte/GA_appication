@@ -13,14 +13,12 @@ namespace GA_application
         public double numberFeatures { get; }
 
         public double[,] population { get; }
-        public double[,] selectedPopulation { get; set; }
         public double[] maxInPopulation { get; }
         public double [,] rangeFeatures { set; get; }
 
         public Features(int _populationSize, int _numberFeatures)
         {
             population = new double[_numberFeatures, _populationSize];
-            selectedPopulation = new double[_numberFeatures, _populationSize];
             maxInPopulation = new double[_numberFeatures];
             rangeFeatures = new double[_numberFeatures, 2];
 
@@ -32,6 +30,7 @@ namespace GA_application
 
         }
 
+        
       
     }
 }
