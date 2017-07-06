@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Features.cs" />
     <Compile Include="Fitness.cs" />
+    <Compile Include="Function.cs" />
     <Compile Include="GeneticAlgorithm.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

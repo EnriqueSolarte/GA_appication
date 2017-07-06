@@ -14,11 +14,12 @@ namespace GA_application
         public double pCrossover { get; set; }
         public double pMutation { get; set; }
         public double generationNumber{ get; set; }
-    
-        public GeneticAlgorithm(int population, double[,] rangeOfFeatures)
+
+        
+        public GeneticAlgorithm(int population, double[,] rangeOfFeatures, double[,] target)
         {
             features = new Features(population, rangeOfFeatures);
-            fitness = new Fitness(300, population);
+            fitness = new Fitness(300, target);
         }
    
         private void RouletteWheelSelection()
@@ -42,11 +43,22 @@ namespace GA_application
                     selectedPopulation[i, ii] = features.population[j, ii];
                 }
             }
-            for (int ii = 0; ii < features.numberFeatures; ii++)
+            if (features.bestFeature[0] < fitness.GetMaxFitness()[0])
             {
-                selectedPopulation[1, ii] = features.population[fitness.indexFitnessMaximo, ii];
+                for (int ii = 0; ii < features.numberFeatures; ii++)
+                {
+                    selectedPopulation[1, ii] = features.population[(int)fitness.GetMaxFitness()[1], ii];
+                }
             }
-         
+            else
+            {
+                for (int ii = 1; ii < features.numberFeatures; ii++)
+                {
+                    selectedPopulation[1, ii] = features.bestFeature[ii];
+                }
+            }
+
+            features.population = selectedPopulation;
         }
 
         private void Crossover()
@@ -70,20 +82,30 @@ namespace GA_application
         private void Mutation()
         {
             Random rnd = new Random();
-            for (int i=0; i< features.populationSize; i++)
+            for (int i = 0; i < features.populationSize; i++)
             {
-                if(rnd.NextDouble() < pMutation)
+                if (rnd.NextDouble() < pMutation)
                 {
-                    for (int j=0; j< features.numberFeatures; j++)
+                    for (int j = 0; j < features.numberFeatures; j++)
                     {
-                        features.population[i, j] = features.rangeFeatures[1, j] + rnd.NextDouble() * (features.rangeFeatures[2,j] - features.rangeFeatures[1,j]);
+                        features.population[i, j] = features.rangeFeatures[1, j] + rnd.NextDouble() * (features.rangeFeatures[2, j] - features.rangeFeatures[1, j]);
                     }
                 }
             }
         }
 
+       
         public void Run()
         {
+            double maxAll = 0;
+    
+            for(int gen = 1; gen <= generationNumber; gen++)
+            {
+                fitness.Evaluation(features.population);
+                RouletteWheelSelection();
+                Crossover();
+                Mutation();
+            }
             
         }
 

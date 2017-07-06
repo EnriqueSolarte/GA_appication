@@ -12,7 +12,8 @@ namespace GA_application
         public double populationSize { get; }
         public double numberFeatures { get; }
 
-        public double[,] population { get; }
+        public double[] bestFeature { get; set; }
+        public double[,] population { get; set; }
     
         public double [,] rangeFeatures {get; }
 
@@ -20,6 +21,7 @@ namespace GA_application
         {
             rangeFeatures = _rangeFeatures;
             numberFeatures = _rangeFeatures.GetLength(0);
+            bestFeature = new double[(int)numberFeatures+1];
             population = new double[_populationSize, (int)numberFeatures];
 
             initializePopulation();
