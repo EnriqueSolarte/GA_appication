@@ -15,9 +15,9 @@ namespace GA_application
         public double pMutation { get; set; }
         public double generationNumber{ get; set; }
     
-        public GeneticAlgorithm()
+        public GeneticAlgorithm(int population, double[,] rangeOfFeatures)
         {
-           
+            features = new Features(population, rangeOfFeatures);
         }
    
         private void RouletteWheelSelection()
@@ -54,12 +54,22 @@ namespace GA_application
 
         private void Mutation()
         {
-           
+            Random rnd = new Random();
+            for (int i=0; i< features.populationSize; i++)
+            {
+                if(rnd.NextDouble() < pMutation)
+                {
+                    for (int j=0; j< features.numberFeatures; j++)
+                    {
+                        features.population[i, j] = features.rangeFeatures[1, j] + rnd.NextDouble() * (features.rangeFeatures[2,j] - features.rangeFeatures[1,j]);
+                    }
+                }
+            }
         }
 
         public void Run()
         {
-
+            
         }
 
 

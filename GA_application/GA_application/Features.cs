@@ -13,13 +13,16 @@ namespace GA_application
         public double numberFeatures { get; }
 
         public double[,] population { get; }
-        public double[] maxInPopulation { get; }
-        public double [,] rangeFeatures { set; get; }
+    
+        public double [,] rangeFeatures {get; }
 
-        public Features(int _populationSize, int _numberFeatures)
+        public Features(int _populationSize, double[,] _rangeFeatures)
         {
-            population = new double[_populationSize, _numberFeatures];
-            rangeFeatures = new double[2, _numberFeatures];
+            rangeFeatures = _rangeFeatures;
+            numberFeatures = _rangeFeatures.GetLength(0);
+            population = new double[_populationSize, (int)numberFeatures];
+
+            initializePopulation();
         }
 
         private void initializePopulation()
@@ -29,8 +32,5 @@ namespace GA_application
                 for (int j = 0; j < populationSize; j++)
                     population[i, j] = rangeFeatures[1,j]+rnd.NextDouble()*(rangeFeatures[2,j]-rangeFeatures[1,j]);
         }
-
-        
-      
     }
 }

@@ -23,7 +23,9 @@ namespace GA_application
         public MainWindow()
         {
             InitializeComponent();
-            GeneticAlgorithm GA = new GeneticAlgorithm();
+            int population = 100;
+            double[,] rangeFeatures = new double[,] { {20,50}, {0, 0.1 }, {0,20.5} };
+            GeneticAlgorithm GA = new GeneticAlgorithm(population,rangeFeatures);
 
 
             GA.Run();
