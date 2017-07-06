@@ -18,11 +18,8 @@ namespace GA_application
 
         public Features(int _populationSize, int _numberFeatures)
         {
-
             population = new double[_populationSize, _numberFeatures];
-            selectedPopulation = new double[_populationSize,_numberFeatures];
-
-            population = new double[_numberFeatures, _populationSize];
+            rangeFeatures = new double[2, _numberFeatures];
         }
 
         private void initializePopulation()
