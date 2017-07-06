@@ -32,9 +32,6 @@ namespace GA_application
 
         }
 
-        internal void UploadPopulation()
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }
