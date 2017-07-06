@@ -8,7 +8,6 @@ namespace GA_application
 {
     class GeneticAlgorithm
     {
- 
         public Features features { get; set; }
         public Fitness fitness { get; set; }
         public double pCrossover { get; set; }
@@ -53,12 +52,38 @@ namespace GA_application
 
         private void Crossover()
         {
-
+            Random rand = new Random();
+            for (int jj = 0; jj < features.populationSize; jj++)
+            {
+                if (rand.NextDouble() < pCrossover)
+                {
+                    int  jCross = (int)(rand.NextDouble()*features.chromosomeLenght);
+                    if(jCross.Equals(0))
+                    {
+                        jCross = 1;
+                    }
+                    for(int j = 0; j < features.chromosomeLenght; j ++)
+                    {
+                        
+                    }
+                }
+            }
         }
 
         private void Mutation()
         {
+            Random rand = new Random();
 
+            for(int i = 0; i < features.populationSize; i++ )
+            {
+                for(int j =0; j < features.chromosomeLenght; j++)
+                {
+                    if(rand.NextDouble() < pMutation)
+                    {
+
+                    }
+                }
+            }
         }
 
         private void Run()

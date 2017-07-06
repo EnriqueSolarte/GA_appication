@@ -6,11 +6,15 @@ namespace GA_application
     {
         public double sumatoryFitness { get; }
         public double[] fitnessValue { get; }
+        public int indexFitnessMaximo { get;}
 
-        public Fitness()
+        private double _constantFitness { set; get; }
+
+        public Fitness(int constantFitness)
         {
-
+            _constantFitness = constantFitness;
         } 
+
         public double[] Evaluation()
         {
             double[] _fitness = new double[3];
