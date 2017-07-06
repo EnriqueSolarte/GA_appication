@@ -9,7 +9,7 @@ namespace GA_application
     class Features
     {
      
-        public double populationSize { get;}
+        public double populationSize { get; }
         public double numberFeatures { get; }
 
         public double[,] population { get; }
@@ -19,17 +19,20 @@ namespace GA_application
 
         public Features(int _populationSize, int _numberFeatures)
         {
-            population = new double[_numberFeatures, _populationSize];
-            selectedPopulation = new double[_numberFeatures, _populationSize];
+            population = new double[_populationSize, _numberFeatures];
+            selectedPopulation = new double[_populationSize,_numberFeatures];
             maxInPopulation = new double[_numberFeatures];
-            rangeFeatures = new double[_numberFeatures, 2];
+            rangeFeatures = new double[2,_numberFeatures];
 
 
         }
 
         private void initializePopulation()
         {
-
+            Random rnd = new Random();
+            for (int i = 0; i < numberFeatures; i++)
+                for (int j = 0; j < populationSize; j++)
+                    population[i, j] = rangeFeatures[1,j]+rnd.NextDouble()*(rangeFeatures[2,j]-rangeFeatures[1,j]);
         }
 
       
