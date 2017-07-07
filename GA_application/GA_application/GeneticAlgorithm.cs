@@ -8,8 +8,11 @@ namespace GA_application
 {
     class GeneticAlgorithm
     {
+        
         public Features features { get; set; }
         public Fitness fitness { get; set; }
+
+        private double[][] targetFunction; //ok kike
 
         public double pCrossover { get; set; }
         public double pMutation { get; set; }
@@ -21,7 +24,15 @@ namespace GA_application
             features = new Features(population, rangeOfFeatures);
             fitness = new Fitness(300, target);
         }
-   
+
+        public GeneticAlgorithm(int populationSize, double[,] rangeOfFeatures, double[] xTarget, double[] yTarget)
+        {
+            // kike Constructor
+            features = new Features(populationSize, rangeOfFeatures);
+            fitness = new Fitness(300, (int)features.populationSize, yTarget);
+
+        }
+
         private void RouletteWheelSelection()
         {
             Random rnd = new Random();
@@ -95,9 +106,14 @@ namespace GA_application
         }
 
        
-        public void Run()
+        public void Run(double generations, double _pMutation, double _pCrossover)
         {
-            double maxAll = 0;
+
+            pCrossover = _pCrossover;
+            pMutation = _pMutation;
+            generationNumber = generations;
+
+            //double maxAll = 0;
     
             for(int gen = 1; gen <= generationNumber; gen++)
             {

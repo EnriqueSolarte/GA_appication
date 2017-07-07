@@ -24,14 +24,13 @@ namespace GA_application
         {
             InitializeComponent();
             double[] xVar = new double[] { 1, 2, 3, 4, 5 ,6, 7, 8, 9, 10};
-            double[] yVar = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            Function target = new Function(xVar, yVar);
-            Function function = new  Function(xVar, yVar);
+            double[] yVar = new double[] { 47.4750,   95.4750,  143.4750,  191.4750,  239.4750,  287.4750,  335.4750,  383.4750, 431.4750,  479.4750 };
 
-            //double[][] result1 = function.EvaluationJagged(new double[] { 12, 12, 10.5 ,0.01});
-            //double[][] result2 = function.EvaluationJagged(new double[] { 30, 0.5, 12.5, 1.5 });
+                     
+            GeneticAlgorithm GA = new GeneticAlgorithm(100, new double[,] { { 0, 20 }, { 5, 50 }, { -5, 20 }, { 0, 3.5 } }, xVar, yVar);
 
-
+            GA.Run(300,0.9,0.01);
+            
         }
     }
 

@@ -6,22 +6,23 @@ using System.Threading.Tasks;
 
 namespace GA_application
 {
-    class Function
+    public class Function
     {
         public double[][] dependentVariable;
         public double[] IndependentVariable;
         private double[] xVariables;
         private double[] yVariables;
 
-        public Function(double[] _xVar, double[] _yVar)
+        public Function(double[] _xVar)
         {
-            if(_xVar.GetLength(0)== _yVar.GetLength(0))
-            {
-                xVariables = _xVar;
-                yVariables = _yVar;
-                dependentVariable = new double[][] { _xVar, _yVar };
-            } 
-            
+
+            xVariables = new double[_xVar.Length];
+            yVariables = new double[_xVar.Length];
+
+            xVariables = _xVar;
+               
+            dependentVariable = new double[][] { xVariables, yVariables };
+                       
         }
 
         public Function()

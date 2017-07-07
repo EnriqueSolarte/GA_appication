@@ -21,6 +21,7 @@ namespace GA_application
         {
             rangeFeatures = _rangeFeatures;
             numberFeatures = _rangeFeatures.GetLength(0);
+            populationSize = _populationSize;
             bestFeature = new double[(int)numberFeatures+1];
             population = new double[_populationSize, (int)numberFeatures];
 
@@ -30,9 +31,13 @@ namespace GA_application
         private void initializePopulation()
         {
             Random rnd = new Random();
-            for (int i = 0; i < numberFeatures; i++)
-                for (int j = 0; j < populationSize; j++)
-                    population[i, j] = rangeFeatures[1,j]+rnd.NextDouble()*(rangeFeatures[2,j]-rangeFeatures[1,j]);
+            for (int i = 0; i <  populationSize; i++)
+            {
+                for (int j = 0; j < numberFeatures; j++)
+                {
+                    population[i, j] = rangeFeatures[j,0] + rnd.NextDouble() * (rangeFeatures[j,1] - rangeFeatures[j,0]);
+                }
+            }
         }
     }
 }
