@@ -12,8 +12,6 @@ namespace GA_application
         public Features features { get; set; }
         public Fitness fitness { get; set; }
 
-        private double[][] targetFunction; //ok kike
-
         public double pCrossover { get; set; }
         public double pMutation { get; set; }
         public double generationNumber{ get; set; }
@@ -31,6 +29,7 @@ namespace GA_application
             features = new Features(populationSize, rangeOfFeatures);
             fitness = new Fitness(300, (int)features.populationSize, yTarget);
 
+            fitness.function = new Function(xTarget);
         }
 
         private void RouletteWheelSelection()

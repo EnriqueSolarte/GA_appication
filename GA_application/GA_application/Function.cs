@@ -8,8 +8,7 @@ namespace GA_application
 {
     public class Function
     {
-        public double[][] dependentVariable;
-        public double[] IndependentVariable;
+        public double[] features;
         private double[] xVariables;
         private double[] yVariables;
 
@@ -19,10 +18,7 @@ namespace GA_application
             xVariables = new double[_xVar.Length];
             yVariables = new double[_xVar.Length];
 
-            xVariables = _xVar;
-               
-            dependentVariable = new double[][] { xVariables, yVariables };
-                       
+            xVariables = _xVar;                       
         }
 
         public Function()
@@ -30,21 +26,16 @@ namespace GA_application
 
         }
 
-        public double[][] EvaluationJagged(double[] feature)
+        public double[] EvaluationJagged(double[] _feature)
         {
-            IndependentVariable = feature;
+            features = _feature;
 
             for (int i = 0; i < xVariables.GetLength(0); i++)
             {
-               yVariables[i] =  feature[0]*xVariables[i] + 3* feature[1] * xVariables[i] - 5* feature[2]*feature[3];
+               yVariables[i] =  _feature[0]*xVariables[i] + 3* _feature[1] * xVariables[i] - 5* _feature[2]*_feature[3];
             }
 
-            dependentVariable[0] = new double[xVariables.GetLength(0)];
-            dependentVariable[0] = xVariables ;
-            dependentVariable[1] = new double[yVariables.GetLength(0)];
-            dependentVariable[1] = yVariables;
-
-            return dependentVariable;
+           return yVariables;
         }
 
         public double[,] Evaluation(double[] feature)

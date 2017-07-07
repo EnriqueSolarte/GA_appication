@@ -5,8 +5,10 @@ namespace GA_application
     public class Fitness
     {
 
-        private Function function;
+        public Function function;
         private double[] targetFucntion;
+        double[] populationError;
+        double[] chromosomeError;
 
         public double sumatoryFitness { get; set; }
         public double[] fitnessValue { get; set; }
@@ -29,6 +31,10 @@ namespace GA_application
             targetFucntion = _targetFunction;
             constantFitness = _constantFitness;
             fitnessValue = new double[_populationSize];
+            populationError = new double[_populationSize];
+            chromosomeError = new double[_targetFunction.Length];
+
+
         }
 
         public double[] GetMaxFitness()
@@ -42,29 +48,29 @@ namespace GA_application
 
         public void Evaluation(double[,] population)
         {
-            double[] error = new double[population.GetLength(0)];
+            populationError = new double[population.GetLength(0)];
             fitnessValue = new double[population.GetLength(0)];
             for (int i =0; i< population.GetLength(0);i++ )
             {
 
-                double[] feature = new double[population.GetLength(1)];
+                double[] currentFeature = new double[population.GetLength(1)];
                 for(int j=0; j < population.GetLength(1); j++)
                 {
-                    feature[j] = population[i, j];
+                    currentFeature[j] = population[i, j];
                 }
                 
                 //double[,] result = function.Evaluation(feature);
 
-                double[][] result = function.EvaluationJagged(feature);
+                double[] result = function.EvaluationJagged(currentFeature);
 
                 for (int j = 0; j < result.Length; j++)
                 {
                     //error[j] = Math.Abs(target[j, 1] - result[j, 1]);
-                    error[j] = Math.Abs(targetFucntion[j] - result[1][j]);
+                    chromosomeError[j] = Math.Abs(targetFucntion[j] - result[j]);
                 }
 
-                double sumError = error.Sum();
-
+                double sumError = chromosomeError.Sum();
+                populationError[i] = sumError;
                 fitnessValue[i] = constantFitness / sumError;
             }
 
