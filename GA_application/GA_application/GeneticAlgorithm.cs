@@ -14,12 +14,14 @@ namespace GA_application
         public double pCrossover { get; set; }
         public double pMutation { get; set; }
         public double generationNumber{ get; set; }
-
-        
-        public GeneticAlgorithm(int population, double[,] rangeOfFeatures, double[,] target)
+        //range of mesurement for x axis
+        public double[] rangeOfMeasurement { get; set; }
+                
+        public GeneticAlgorithm(int population, double[,] rangeOfFeatures, double[,] target, double[] _rangeOfMeasurement)
         {
+            rangeOfMeasurement = _rangeOfMeasurement;
             features = new Features(population, rangeOfFeatures);
-            fitness = new Fitness(300, target);
+            fitness = new Fitness(300, target, rangeOfMeasurement);
         }
    
         private void RouletteWheelSelection()
@@ -31,30 +33,37 @@ namespace GA_application
             {
                 double test = rnd.NextDouble()*fitness.sumatoryFitness;
                 double partSum = fitness.fitnessValue[0];
-                int j = 1;
+                int j = 0;
                 while (partSum < test)
                 {
                     partSum = partSum + fitness.fitnessValue[j + 1];
                     j++;
-                    if (j == features.populationSize) j = 1;
+                    if (j == features.populationSize) j = 0;
                 }
                 for(int ii=0; ii< features.numberFeatures; ii++)
                 {
                     selectedPopulation[i, ii] = features.population[j, ii];
                 }
             }
-            if (features.bestFeature[0] < fitness.GetMaxFitness()[0])
+            fitness.GetMaxFitness();
+            if (features.bestFeature[0] < fitness.maxFitness)
             {
                 for (int ii = 0; ii < features.numberFeatures; ii++)
                 {
-                    selectedPopulation[1, ii] = features.population[(int)fitness.GetMaxFitness()[1], ii];
+                    selectedPopulation[0, ii] = features.population[(int)fitness.maxFitnessIndex-1, ii];
+                }
+                //it is also necessary to save the best feature in the bestFeature variable.
+                features.bestFeature[0] = fitness.maxFitness;
+                for (int ii = 1; ii < features.bestFeature.Length; ii++)
+                {
+                    features.bestFeature[ii]= features.population[(int)fitness.maxFitnessIndex-1, ii-1];
                 }
             }
             else
             {
-                for (int ii = 1; ii < features.numberFeatures; ii++)
+                for (int ii = 0; ii < features.numberFeatures; ii++)
                 {
-                    selectedPopulation[1, ii] = features.bestFeature[ii];
+                    selectedPopulation[0, ii] = features.bestFeature[ii+1];
                 }
             }
 
@@ -84,31 +93,32 @@ namespace GA_application
             Random rnd = new Random();
             for (int i = 0; i < features.populationSize; i++)
             {
-                if (rnd.NextDouble() < pMutation)
+                if (rnd.NextDouble() <= pMutation)
                 {
                     for (int j = 0; j < features.numberFeatures; j++)
                     {
-                        features.population[i, j] = features.rangeFeatures[1, j] + rnd.NextDouble() * (features.rangeFeatures[2, j] - features.rangeFeatures[1, j]);
+                        features.population[i, j] = features.rangeFeatures[j,0] + rnd.NextDouble() * (features.rangeFeatures[j,1] - features.rangeFeatures[j,0]);
                     }
                 }
             }
         }
-
-       
-        public void Run()
+ 
+        public void Run(int _generationNumber, double _pCrossover, double _pMutation)
         {
-            double maxAll = 0;
-    
-            for(int gen = 1; gen <= generationNumber; gen++)
+            generationNumber = _generationNumber;
+            pCrossover = _pCrossover;
+            pMutation = _pMutation;
+            double[] maxFitnessRecord = new double[(int)generationNumber];
+
+            fitness.Evaluation(features.population);
+            for (int gen = 0; gen < _generationNumber; gen++)
             {
-                fitness.Evaluation(features.population);
                 RouletteWheelSelection();
                 Crossover();
                 Mutation();
+                fitness.Evaluation(features.population);
+                maxFitnessRecord[gen] = features.bestFeature[0];
             }
-            
         }
-
-
     }
 }
