@@ -7,7 +7,7 @@ namespace GA_application
 
         public Function function;
         private double[] targetFucntion;
-        double[] populationError;
+        private double[] populationError;
         double[] chromosomeError;
 
         public double sumatoryFitness { get; set; }
@@ -16,6 +16,7 @@ namespace GA_application
         public double maximoFitness { get; set; }
         public double indexMaximoFitness { get; set; }
         public double meanFitnesss { get; set; }
+        public double[] errorValue { get; set; }
 
         private double constantFitness { set; get; }
 
@@ -58,7 +59,7 @@ namespace GA_application
             
             populationError = new double[_features.population.GetLength(0)];
             fitnessValue = new double[_features.population.GetLength(0)];
-            for (int i =0; i< _features.population.GetLength(0);i++ )
+            for (int i =0; i< _features.population.GetLength(0); i++ )
             {
 
                 double[] currentFeature = new double[_features.population.GetLength(1)];
@@ -77,6 +78,7 @@ namespace GA_application
                 double sumError = chromosomeError.Sum();
                 populationError[i] = sumError;
                 fitnessValue[i] = constantFitness / sumError;
+                
             }
 
             maximoFitness = GetMaxFitness()[0];

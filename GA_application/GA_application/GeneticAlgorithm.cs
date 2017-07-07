@@ -135,6 +135,7 @@ namespace GA_application
                 Crossover();
                 Mutation();
                 fitness.Evaluation(features);
+
                 maxfitnessGA[gen-1] = features.bestFeature[0];
                 meanfitnessGA[gen-1] = fitness.meanFitnesss;
             }
