@@ -23,13 +23,15 @@ namespace GA_application
         public MainWindow()
         {
             InitializeComponent();
-            int population = 100;
-            double[,] rangeFeatures = new double[,] { {20,50}, {0, 0.1 }, {0,20.5} };
-            GeneticAlgorithm GA = new GeneticAlgorithm(population,rangeFeatures);
+            double[] xVar = new double[] { 1, 2, 3, 4, 5 ,6, 7, 8, 9, 10};
+            double[] yVar = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            Function target = new Function(xVar, yVar);
+            Function function = new  Function(xVar, yVar);
+
+            //double[][] result1 = function.EvaluationJagged(new double[] { 12, 12, 10.5 ,0.01});
+            //double[][] result2 = function.EvaluationJagged(new double[] { 30, 0.5, 12.5, 1.5 });
 
 
-            GA.Run();
-            
         }
     }
 
