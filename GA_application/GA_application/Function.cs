@@ -32,7 +32,7 @@ namespace GA_application
 
             for (int i = 0; i < xVariables.GetLength(0); i++)
             {
-               yVariables[i] =  _feature[0]*xVariables[i] + 3* _feature[1] * xVariables[i] - 5* _feature[2]*_feature[3];
+               yVariables[i] =  _feature[0]*xVariables[i] + 3* _feature[1] * xVariables[i] * xVariables[i] - 5* _feature[2]*_feature[3];
             }
 
            return yVariables;

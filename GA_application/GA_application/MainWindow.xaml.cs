@@ -24,12 +24,13 @@ namespace GA_application
         {
             InitializeComponent();
             double[] xVar = new double[] { 1, 2, 3, 4, 5 ,6, 7, 8, 9, 10};
-            double[] yVar = new double[] { 47.4750,   95.4750,  143.4750,  191.4750,  239.4750,  287.4750,  335.4750,  383.4750, 431.4750,  479.4750 };
+            double[] yVar = new double[] { 47.5 ,  167.5,    359.5,     623.5,    959.5,    1367.5,    1847.5,    2399,5, 3023.5,    3719.5 };
 
                      
-            GeneticAlgorithm GA = new GeneticAlgorithm(100, new double[,] { { 0, 20 }, { 5, 50 }, { -5, 20 }, { 0, 3.5 } }, xVar, yVar);
+            GeneticAlgorithm GA = new GeneticAlgorithm(50, new double[,] { { 0, 20 }, { 5, 50 }, { -5, 20 }, { 0, 3.5 } }, xVar, yVar);
 
-            GA.Run(300,0.9,0.01);
+            GA.Run(500,0.9,0.05);
+            
             
         }
     }

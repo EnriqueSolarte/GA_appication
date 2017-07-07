@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GA_application
 {
-    class Features
+    public class Features
     {
      
         public double populationSize { get; }

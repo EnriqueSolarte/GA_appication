@@ -11,7 +11,11 @@ namespace GA_application
         double[] chromosomeError;
 
         public double sumatoryFitness { get; set; }
+
         public double[] fitnessValue { get; set; }
+        public double maximoFitness { get; set; }
+        public double indexMaximoFitness { get; set; }
+        public double meanFitnesss { get; set; }
 
         private double constantFitness { set; get; }
 
@@ -42,30 +46,31 @@ namespace GA_application
             double value = fitnessValue.Max();
             double index = fitnessValue.ToList().IndexOf(value);
 
-            double[] result = new double[2] { value, index };
+            maximoFitness = value;
+            indexMaximoFitness = index;
+
+            double[] result = new double[2] { value, index};
             return result;
         }
 
-        public void Evaluation(double[,] population)
+        public void Evaluation(Features _features)
         {
-            populationError = new double[population.GetLength(0)];
-            fitnessValue = new double[population.GetLength(0)];
-            for (int i =0; i< population.GetLength(0);i++ )
+            
+            populationError = new double[_features.population.GetLength(0)];
+            fitnessValue = new double[_features.population.GetLength(0)];
+            for (int i =0; i< _features.population.GetLength(0);i++ )
             {
 
-                double[] currentFeature = new double[population.GetLength(1)];
-                for(int j=0; j < population.GetLength(1); j++)
+                double[] currentFeature = new double[_features.population.GetLength(1)];
+                for(int j=0; j < _features.population.GetLength(1); j++)
                 {
-                    currentFeature[j] = population[i, j];
+                    currentFeature[j] = _features.population[i, j];
                 }
                 
-                //double[,] result = function.Evaluation(feature);
-
                 double[] result = function.EvaluationJagged(currentFeature);
 
                 for (int j = 0; j < result.Length; j++)
                 {
-                    //error[j] = Math.Abs(target[j, 1] - result[j, 1]);
                     chromosomeError[j] = Math.Abs(targetFucntion[j] - result[j]);
                 }
 
@@ -74,8 +79,10 @@ namespace GA_application
                 fitnessValue[i] = constantFitness / sumError;
             }
 
+            maximoFitness = GetMaxFitness()[0];
+            indexMaximoFitness = GetMaxFitness()[1];
+            meanFitnesss = fitnessValue.Sum() / fitnessValue.Length;
             sumatoryFitness = fitnessValue.Sum();
-
         }
 
        
