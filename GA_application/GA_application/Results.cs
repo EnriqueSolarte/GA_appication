@@ -13,6 +13,7 @@ namespace GA_application
         public double[] maxErrorGA { get; }
         public double[][] bestFeaturesGA { get; }
         public double[,] evaluationGA { get; }
+        public double[] theBestFetureGA { get; set; }
 
         public int generations { get; }
 
@@ -27,7 +28,7 @@ namespace GA_application
             evaluationGA = _evaluationGA;
 
             generations = _bestFeaturesGA[0].Length;
-
+            theBestFetureGA = _bestFeaturesGA[_bestFeaturesGA[0].Length];
             function = new Function(_rangeOfMeasurement);
         }
 
@@ -35,6 +36,27 @@ namespace GA_application
         {
             return function.Evaluation(_feature);
         }
+
+        public double[][] EvaluationJagged(double[] _feature)
+        {
+
+            double[,] data = function.Evaluation(_feature);
+
+            double[] xVar=new double[data.GetLength(0)];
+            double[] yVar = new double[data.GetLength(0)];
+
+            for (int i = 0; i < data.GetLength(0); i++)
+            {
+                xVar[i] = data[i, 0];
+                yVar[i] = data[i, 1];
+            }
+
+            double[][] dataJageed = new double[2][] {xVar , yVar };
+
+            return dataJageed;
+        }
+
+
     }
 }
 
