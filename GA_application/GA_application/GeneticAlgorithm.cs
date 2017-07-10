@@ -15,11 +15,19 @@ namespace GA_application
         private double pCrossover { get; set; }
         private double pMutation { get; set; }
         private double generationNumber{ get; set; }
+     
+        public double[] rangeOfMeasurement { get; set; }
+                
+        public GeneticAlgorithm(int population, double[,] rangeOfFeatures, double[,] target, double[] _rangeOfMeasurement)
+        {
+            rangeOfMeasurement = _rangeOfMeasurement;
+            features = new Features(population, rangeOfFeatures);
+            fitness = new Fitness(300, target, rangeOfMeasurement);
+            public double[] maxfitnessGA { get; set; }
+            public double[] meanfitnessGA { get; set; }
 
-        public double[] maxfitnessGA { get; set; }
-        public double[] meanfitnessGA { get; set; }
-
-        
+        }
+      
        public GeneticAlgorithmKike(int populationSize, double[,] rangeOfFeatures, double[] xTarget, double[] yTarget)
         {
             // kike Constructor
@@ -43,7 +51,10 @@ namespace GA_application
                 {
                     partSum = partSum + fitness.fitnessValue[j + 1];
                     j++;
-                    if (j == features.populationSize-1) j = 0;
+
+                    if (j == features.populationSize) j = 0;
+
+                   // if (j == features.populationSize-1) j = 0;
                 }
                 for(int ii=0; ii< features.numberFeatures; ii++)
                 {
@@ -52,32 +63,34 @@ namespace GA_application
             }
 
             fitness.GetMaxFitness();
-            if (features.bestFeature[0] < fitness.maximoFitness)
+            if (features.bestFeature[0] < fitness.maxFitness)
             {
                 for (int ii = 0; ii < features.numberFeatures; ii++)
                 {
-                    selectedPopulation[0, ii] = features.population[(int)fitness.indexMaximoFitness, ii];
+                    selectedPopulation[0, ii] = features.population[(int)fitness.maxFitnessIndex-1, ii];
                 }
-
-                for (int ii = 1; ii <= features.numberFeatures; ii++)
+                //it is also necessary to save the best feature in the bestFeature variable.
+                features.bestFeature[0] = fitness.maxFitness;
+                for (int ii = 1; ii < features.bestFeature.Length; ii++)
                 {
-                    features.bestFeature[ii] = selectedPopulation[0, ii-1];
+                    features.bestFeature[ii]= features.population[(int)fitness.maxFitnessIndex-1, ii-1];
+
                 }
-                features.bestFeature[0] = fitness.maximoFitness;
 
             }
             else
             {
-                for (int ii = 1; ii <= features.numberFeatures; ii++)
+                for (int ii = 0; ii < features.numberFeatures; ii++)
                 {
-                    selectedPopulation[0, ii-1] = features.bestFeature[ii];
+                    selectedPopulation[0, ii] = features.bestFeature[ii+1];
+
                 }
             }
 
             features.population = selectedPopulation;
         }
 
-        private void Crossoverkike()
+        private void Crossover()
         {
             Random rnd = new Random();
 
@@ -96,7 +109,7 @@ namespace GA_application
             }
         }
 
-        private void Mutationkike()
+        private void Mutation()
         {
             Random rnd = new Random();
             for (int i = 0; i < features.populationSize; i++)
@@ -105,12 +118,12 @@ namespace GA_application
                 {
                     for (int j = 0; j < features.numberFeatures; j++)
                     {
-                        features.population[i, j] = features.rangeFeatures[j, 0] + rnd.NextDouble() * (features.rangeFeatures[j, 1] - features.rangeFeatures[j, 0]);
+                        features.population[i, j] = features.rangeFeatures[j,0] + rnd.NextDouble() * (features.rangeFeatures[j,1] - features.rangeFeatures[j,0]);
+
                     }
                 }
             }
         }
-
        
         public void Runkike(double generations, double _pCrossover, double _pMutation)
         {
@@ -134,8 +147,7 @@ namespace GA_application
                 meanfitnessGA[gen-1] = fitness.meanFitnesss;
             }
 
+
         }
-
-
     }
 }

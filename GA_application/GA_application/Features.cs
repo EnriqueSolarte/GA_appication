@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,6 @@ namespace GA_application
 {
     public class Features
     {
-     
         public double populationSize { get; }
         public double numberFeatures { get; }
 
@@ -24,7 +23,7 @@ namespace GA_application
             populationSize = _populationSize;
             bestFeature = new double[(int)numberFeatures+1];
             population = new double[_populationSize, (int)numberFeatures];
-
+            populationSize = _populationSize;
             initializePopulation();
         }
 
