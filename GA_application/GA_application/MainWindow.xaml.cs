@@ -22,6 +22,7 @@ namespace GA_application
         {
             InitializeComponent();
 
+
             double[,] rangeFeatures = new double[,] { { 0, 20 }, { 5, 50 }, { -5, 20 }, { 0, 3.5} };
             double[] rangeMeasurement = new double[] { 1, 2, 3, 4, 5};
 
@@ -41,6 +42,8 @@ namespace GA_application
 
             GA_2.Run(300,0.9,0.01);
         }
+
+
     }
 
 }

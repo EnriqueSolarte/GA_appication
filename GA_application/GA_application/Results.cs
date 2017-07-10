@@ -14,6 +14,8 @@ namespace GA_application
         public double[][] bestFeaturesGA { get; }
         public double[,] evaluationGA { get; }
 
+        public int generations { get; }
+
         private Function function;
 
         public Results(double[] _maxFitnessGA, double[] _meanFitnessGA, double[] _maxErrorGA, double[][] _bestFeaturesGA, double[,] _evaluationGA, double[] _rangeOfMeasurement)
@@ -23,6 +25,8 @@ namespace GA_application
             maxErrorGA = _maxErrorGA;
             bestFeaturesGA = _bestFeaturesGA;
             evaluationGA = _evaluationGA;
+
+            generations = _bestFeaturesGA[0].Length;
 
             function = new Function(_rangeOfMeasurement);
         }
