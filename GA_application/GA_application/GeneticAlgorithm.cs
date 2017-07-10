@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GA_application
 {
-    class GeneticAlgorithm
+    class GeneticAlgorithmKike
     {
         
         private Features features { get; set; }
@@ -20,7 +20,7 @@ namespace GA_application
         public double[] meanfitnessGA { get; set; }
 
         
-       public GeneticAlgorithm(int populationSize, double[,] rangeOfFeatures, double[] xTarget, double[] yTarget)
+       public GeneticAlgorithmKike(int populationSize, double[,] rangeOfFeatures, double[] xTarget, double[] yTarget)
         {
             // kike Constructor
             features = new Features(populationSize, rangeOfFeatures);
@@ -29,7 +29,7 @@ namespace GA_application
             fitness.function = new Function(xTarget);
         }
 
-        private void RouletteWheelSelection()
+        private void RouletteWheelSelectionKike()
         {
             Random rnd = new Random();
             double[,] selectedPopulation = new double[(int)features.populationSize,(int)features.numberFeatures];
@@ -77,7 +77,7 @@ namespace GA_application
             features.population = selectedPopulation;
         }
 
-        private void Crossover()
+        private void Crossoverkike()
         {
             Random rnd = new Random();
 
@@ -96,7 +96,7 @@ namespace GA_application
             }
         }
 
-        private void Mutation()
+        private void Mutationkike()
         {
             Random rnd = new Random();
             for (int i = 0; i < features.populationSize; i++)
@@ -112,7 +112,7 @@ namespace GA_application
         }
 
        
-        public void Run(double generations, double _pCrossover, double _pMutation)
+        public void Runkike(double generations, double _pCrossover, double _pMutation)
         {
 
             pCrossover = _pCrossover;
@@ -122,13 +122,13 @@ namespace GA_application
             maxfitnessGA = new double[(int)generationNumber];
             meanfitnessGA = new double[(int)generationNumber];
 
-            fitness.Evaluation(features);
+            fitness.Evaluationkike(features);
             for (int gen = 1; gen <= generationNumber; gen++)
             {
-                RouletteWheelSelection();
-                Crossover();
-                Mutation();
-                fitness.Evaluation(features);
+                RouletteWheelSelectionKike();
+                Crossoverkike();
+                Mutationkike();
+                fitness.Evaluationkike(features);
 
                 maxfitnessGA[gen-1] = features.bestFeature[0];
                 meanfitnessGA[gen-1] = fitness.meanFitnesss;

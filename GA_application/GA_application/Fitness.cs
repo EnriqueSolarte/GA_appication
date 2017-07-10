@@ -23,13 +23,6 @@ namespace GA_application
         public double[,] target { set; get; }
 
 
-        //public Fitness(int _constantFitness, double[,] _target)
-        //{
-        //    constantFitness = _constantFitness;
-        //    target = _target;
-        //    function = new Function();
-        //}
-
         public Fitness(int _constantFitness, int _populationSize, double[] _targetFunction)
         {
             //Kike constructor
@@ -54,7 +47,7 @@ namespace GA_application
             return result;
         }
 
-        public void Evaluation(Features _features)
+        public void Evaluationkike(Features _features)
         {
             
             populationError = new double[_features.population.GetLength(0)];
@@ -68,7 +61,7 @@ namespace GA_application
                     currentFeature[j] = _features.population[i, j];
                 }
                 
-                double[] result = function.EvaluationJagged(currentFeature);
+                double[] result = function.Evaluationkike(currentFeature);
 
                 for (int j = 0; j < result.Length; j++)
                 {

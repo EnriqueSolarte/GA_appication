@@ -21,7 +21,7 @@ namespace GA_application
             xVar = _xVar;                       
         }
 
-        public double[] EvaluationJagged(double[] _feature)
+        public double[] Evaluationkike(double[] _feature)
         {
             features = _feature;
 
