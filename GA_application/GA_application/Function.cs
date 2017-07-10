@@ -9,16 +9,16 @@ namespace GA_application
     public class Function
     {
         public double[] features;
-        private double[] xVariables;
-        private double[] yVariables;
+        private double[] xVar;
+        private double[] yVar;
 
         public Function(double[] _xVar)
         {
 
-            xVariables = new double[_xVar.Length];
-            yVariables = new double[_xVar.Length];
+            xVar = new double[_xVar.Length];
+            yVar = new double[_xVar.Length];
 
-            xVariables = _xVar;                       
+            xVar = _xVar;                       
         }
 
         public Function()
@@ -30,12 +30,12 @@ namespace GA_application
         {
             features = _feature;
 
-            for (int i = 0; i < xVariables.GetLength(0); i++)
+            for (int i = 0; i < xVar.GetLength(0); i++)
             {
-               yVariables[i] =  _feature[0]*xVariables[i] + 3* _feature[1] * xVariables[i] * xVariables[i] - 5* _feature[2]*_feature[3];
+               yVar[i] =  _feature[1]*Math.Sin(xVar[i] *3* _feature[0]) +  xVar[i] * xVar[i] * _feature[2];
             }
 
-           return yVariables;
+           return yVar;
         }
 
         public double[,] Evaluation(double[] feature)

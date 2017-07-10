@@ -1,20 +1,19 @@
 clear all clc;
 close all;
 
-feature=[12, 12, 10.5 ,0.01]
+feature=[12, 12 ,0.01]
 x=1:1:10;
-for i=1:1:10
-y(i)  = feature(1)*x(i) + 3* feature(2)*x(i)*x(i)- 5* feature(3)*feature(4);           
+for i=1:length(x)
+y(i)  = feature(2)*sin(x(i)*3* feature(1)) + x(i)*x(i)*feature(3);           
 end
-y
+
 plot(x,y, '*')
 hold on 
 
-new = [7.91 11.39 -0.02 13.06]
+new = [3.63 9.68 0.04];
 
-x=1:1:10;
-for i=1:1:10
-y2(i)  = new(1)*x(i) + 3* new(2)*x(i)*x(i)- 5* new(3)*new(4);           
+for  i=1:length(x)
+y2(i) =new(2)*sin(x(i)*3* new(1)) + x(i)*x(i)*new(3);          
 end
 
 plot(x,y2,'-')
