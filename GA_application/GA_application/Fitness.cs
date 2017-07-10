@@ -10,9 +10,9 @@ namespace GA_application
         private double[] populationError;
         private double[] chromosomeError;
 
-        private double sumatoryFitness { get; set; }
+        public double sumatoryFitness { get; set; }
 
-        private double[] fitnessValue { get; set; }
+        public double[] fitnessValue { get; set; }
       
         public double meanFitnesss { get; set; }
 
@@ -22,8 +22,9 @@ namespace GA_application
 
         public double maxFitness { set; get; }
         public double maxFitnessIndex { set; get;}
+        public double maxError { get; set; }
 
-  
+
         public Fitness(int _constantFitness, double[,] _target, double[] _x)
         {
             //Second contructor
@@ -99,6 +100,7 @@ namespace GA_application
             maxFitnessIndex = GetMaxFitness()[1];
             meanFitnesss = fitnessValue.Sum() / fitnessValue.Length;
             sumatoryFitness = fitnessValue.Sum();
+            maxError = populationError[(int)GetMaxFitness()[1]];
         }
       
 

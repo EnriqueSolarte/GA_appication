@@ -9,8 +9,9 @@ namespace GA_application
     class GeneticAlgorithm
     {
         
-        public  Features features { get; set; }
-        public Fitness fitness { get; set; }
+        private  Features features { get; set; }
+        private Fitness fitness { get; set; }
+        public Results results { get; set; }
 
         private double pCrossover { get; set; }
         private double pMutation { get; set; }
@@ -18,9 +19,11 @@ namespace GA_application
      
         private double[] rangeOfMeasurement { get; set; }
 
-        public double[] maxfitnessGA { get; set; }
-        public double[] meanfitnessGA { get; set; }
-
+        private double[] maxFitnessGA { get; set; }
+        private double[] meanFitnessGA { get; set; }
+        private double[] maxErrorGA { get; set; }
+        private double[][] bestFeaturesGA { get; set; }
+        private double[,] evaluationGA { get; set; }
 
         public GeneticAlgorithm(int population, double[,] rangeOfFeatures, double[,] target, double[] _rangeOfMeasurement)
         {
@@ -134,8 +137,10 @@ namespace GA_application
             pMutation = _pMutation;
             generationNumber = generations;
 
-            maxfitnessGA = new double[(int)generationNumber];
-            meanfitnessGA = new double[(int)generationNumber];
+            maxFitnessGA = new double[(int)generationNumber];
+            meanFitnessGA = new double[(int)generationNumber];
+            maxErrorGA = new double[(int)generationNumber];
+            double[] aux = new double[features.bestFeature.GetLength(0)];
 
             fitness.Evaluation(features.population);
             for (int gen = 1; gen <= generationNumber; gen++)
@@ -145,10 +150,18 @@ namespace GA_application
                 Mutation();
                 fitness.Evaluation(features.population);
 
-                maxfitnessGA[gen-1] = features.bestFeature[0];
-                meanfitnessGA[gen-1] = fitness.meanFitnesss;
+                maxFitnessGA[gen-1] = features.bestFeature[0];
+                meanFitnessGA[gen-1] = fitness.meanFitnesss;
+                maxErrorGA[gen - 1] = fitness.maxError;
+                for(int i=1;i<features.bestFeature.GetLength(0);i++)
+                {
+                    aux[i - 1] = features.bestFeature[i];
+                }
+                bestFeaturesGA[gen - 1] = aux;
             }
-
+            //evaluation
+            evaluationGA = fitness.function.Evaluation(bestFeaturesGA[(int)generationNumber]);
+            results = new Results(maxFitnessGA, meanFitnessGA, maxErrorGA, bestFeaturesGA, evaluationGA);
         }
     }
 }
