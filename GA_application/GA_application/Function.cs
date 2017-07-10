@@ -6,32 +6,53 @@ using System.Threading.Tasks;
 
 namespace GA_application
 {
-    class Function
+    public class Function
     {
+
         public double[,] DependentVariables { get; set; }
         public double[] IndependentVariable { get; set; }
-
-        public Function(double[] _x)
+      
+        public double[] features;
+        private double[] xVar;
+        private double[] yVar;
+    
+        public Function(double[] _xVar)
         {
-            //_xLength is the length of the dependent data (provided). It is double vector that
-            //keeps the x axis data.
+
             DependentVariables = new double[_x.Length,2];
-            IndependentVariable = _x;
+          
+            xVar = new double[_xVar.Length];
+            yVar = new double[_xVar.Length];
+
+            xVar = _xVar;                       
         }
 
-        public double[,] Evaluation(double[] feature)
+      
+        public double[,] Evaluation(double[] _feature)
         {
-            //y=a*x Assuming a random function where y = DependantVariable, x = IndependantVariable and 
-            //a = feature
             double[] y = new double[IndependentVariable.Length];
 
             for (int i = 0;i<IndependentVariable.Length;i++)
             {
-                DependentVariables[i, 0] = IndependentVariable[i];
-                DependentVariables[i, 1] = feature[0] * IndependentVariable[i]+3*feature[1]* IndependentVariable[i]* IndependentVariable[i] - 5*feature[2]*feature[3];
+                DependentVariables[i, 0] = xVar[i];
+                DependentVariables[i, 1] = feature[0] * xVar[i]+3*feature[1]* xVar[i]* xVar[i] - 5*feature[2]*feature[3];
             }
             
             return DependentVariables;
         }
+      
+         public double[] EvaluationKike(double[] _feature)
+        {
+            features = _feature;
+
+            for (int i = 0; i < xVar.GetLength(0); i++)
+            {
+               yVar[i] =  _feature[1]*Math.Sin(xVar[i] *3* _feature[0]) +  xVar[i] * xVar[i] * _feature[2];
+            }
+
+           return yVar;
+        }
+
+       
     }
 }

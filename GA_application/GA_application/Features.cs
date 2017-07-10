@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace GA_application
 {
-    class Features
+    public class Features
     {
-        //public double[,] test { get; set; }
         public double populationSize { get; }
         public double numberFeatures { get; }
 
@@ -21,6 +20,7 @@ namespace GA_application
         {
             rangeFeatures = _rangeFeatures;
             numberFeatures = _rangeFeatures.GetLength(0);
+            populationSize = _populationSize;
             bestFeature = new double[(int)numberFeatures+1];
             population = new double[_populationSize, (int)numberFeatures];
             populationSize = _populationSize;
@@ -30,14 +30,13 @@ namespace GA_application
         private void initializePopulation()
         {
             Random rnd = new Random();
-            for (int i = 0; i < populationSize; i++)
+            for (int i = 0; i <  populationSize; i++)
             {
                 for (int j = 0; j < numberFeatures; j++)
                 {
-                    population[i, j] = rangeFeatures[j, 0] + rnd.NextDouble() * (rangeFeatures[j, 1] - rangeFeatures[j, 0]);
+                    population[i, j] = rangeFeatures[j,0] + rnd.NextDouble() * (rangeFeatures[j,1] - rangeFeatures[j,0]);
                 }
             }
-            //test = population;
         }
     }
 }

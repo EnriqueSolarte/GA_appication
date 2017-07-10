@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 
 namespace GA_application
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+  
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+
             double[,] rangeFeatures = new double[,] { { 0, 20 }, { 5, 50 }, { -5, 20 }, { 0, 3.5} };
             double[] rangeMeasurement = new double[] { 1, 2, 3, 4, 5};
 
@@ -30,9 +29,22 @@ namespace GA_application
             double[,] result = evalTarget.Evaluation(new double[] { 12, 12, 10.5, 0.01 });
 
             //Population, rangeFeatures, result, rangeMeasuremet
-            GeneticAlgorithm GA = new GeneticAlgorithm(1000, rangeFeatures, result, rangeMeasurement);
+            GeneticAlgorithm GA_1 = new GeneticAlgorithm(1000, rangeFeatures, result, rangeMeasurement);
             //Generation, Pcrossover, Pmutation
-            GA.Run(50,0.9,0.01);
+            GA_1.Run(50,0.9,0.01);
+
+
+
+            double[] xVar = new double[] { 1, 2, 3, 4, 5 ,6, 7, 8, 9, 10};
+            double[] yVar = new double[] {-11.8913,    3.0859,   11.2118, - 5.7323, - 9.3638,    8.7127,    7.9661, - 9.6261, - 4.0388,   12.5070};
+
+                     
+            GeneticAlgorithmKike GA_2 = new GeneticAlgorithmKike(100, new double[,] { { 0, 15 }, { 5, 15 }, { 0, 1 } }, xVar, yVar);
+
+            GA_2.Run(500,0.9,0.05);
+            
+            
+
         }
     }
 

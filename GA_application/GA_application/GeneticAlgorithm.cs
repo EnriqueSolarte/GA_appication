@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace GA_application
 {
-    class GeneticAlgorithm
+    class GeneticAlgorithmKike
     {
-        public Features features { get; set; }
-        public Fitness fitness { get; set; }
+        
+        private Features features { get; set; }
+        private Fitness fitness { get; set; }
 
-        public double pCrossover { get; set; }
-        public double pMutation { get; set; }
-        public double generationNumber{ get; set; }
-        //range of mesurement for x axis
+        private double pCrossover { get; set; }
+        private double pMutation { get; set; }
+        private double generationNumber{ get; set; }
+     
         public double[] rangeOfMeasurement { get; set; }
                 
         public GeneticAlgorithm(int population, double[,] rangeOfFeatures, double[,] target, double[] _rangeOfMeasurement)
@@ -22,9 +23,21 @@ namespace GA_application
             rangeOfMeasurement = _rangeOfMeasurement;
             features = new Features(population, rangeOfFeatures);
             fitness = new Fitness(300, target, rangeOfMeasurement);
+            public double[] maxfitnessGA { get; set; }
+            public double[] meanfitnessGA { get; set; }
+
         }
-   
-        private void RouletteWheelSelection()
+      
+       public GeneticAlgorithmKike(int populationSize, double[,] rangeOfFeatures, double[] xTarget, double[] yTarget)
+        {
+            // kike Constructor
+            features = new Features(populationSize, rangeOfFeatures);
+            fitness = new Fitness(50000, (int)features.populationSize, yTarget);
+
+            fitness.function = new Function(xTarget);
+        }
+
+        private void RouletteWheelSelectionKike()
         {
             Random rnd = new Random();
             double[,] selectedPopulation = new double[(int)features.populationSize,(int)features.numberFeatures];
@@ -38,13 +51,17 @@ namespace GA_application
                 {
                     partSum = partSum + fitness.fitnessValue[j + 1];
                     j++;
+
                     if (j == features.populationSize) j = 0;
+
+                   // if (j == features.populationSize-1) j = 0;
                 }
                 for(int ii=0; ii< features.numberFeatures; ii++)
                 {
                     selectedPopulation[i, ii] = features.population[j, ii];
                 }
             }
+
             fitness.GetMaxFitness();
             if (features.bestFeature[0] < fitness.maxFitness)
             {
@@ -57,13 +74,16 @@ namespace GA_application
                 for (int ii = 1; ii < features.bestFeature.Length; ii++)
                 {
                     features.bestFeature[ii]= features.population[(int)fitness.maxFitnessIndex-1, ii-1];
+
                 }
+
             }
             else
             {
                 for (int ii = 0; ii < features.numberFeatures; ii++)
                 {
                     selectedPopulation[0, ii] = features.bestFeature[ii+1];
+
                 }
             }
 
@@ -73,16 +93,17 @@ namespace GA_application
         private void Crossover()
         {
             Random rnd = new Random();
-            
-            for(int i=0; i<features.populationSize; i=i+2)
+
+            double[,] selectedPopulation = features.population;
+            for (int i=0; i<features.populationSize-1; i=i+2)
             {
                 if(rnd.NextDouble() <= pCrossover)
                 {
                     for(int j=0; j<features.numberFeatures;j++)
                     {
                         double aux = rnd.NextDouble();
-                        features.population[i, j] = (1 - aux) * features.population[i, j] + aux * features.population[i + 1, j];
-                        features.population[i + 1, j] = aux * features.population[i, j] + (1 - aux) * features.population[i + 1, j];
+                        features.population[i, j] = (1 - aux) * selectedPopulation[i, j] + aux * selectedPopulation[i + 1, j];
+                        features.population[i + 1, j] = aux * selectedPopulation[i, j] + (1 - aux) * selectedPopulation[i + 1, j];
                     }
                 }
             }
@@ -98,27 +119,35 @@ namespace GA_application
                     for (int j = 0; j < features.numberFeatures; j++)
                     {
                         features.population[i, j] = features.rangeFeatures[j,0] + rnd.NextDouble() * (features.rangeFeatures[j,1] - features.rangeFeatures[j,0]);
+
                     }
                 }
             }
         }
- 
-        public void Run(int _generationNumber, double _pCrossover, double _pMutation)
+       
+        public void Runkike(double generations, double _pCrossover, double _pMutation)
         {
-            generationNumber = _generationNumber;
+
             pCrossover = _pCrossover;
             pMutation = _pMutation;
-            double[] maxFitnessRecord = new double[(int)generationNumber];
+            generationNumber = generations;
 
-            fitness.Evaluation(features.population);
-            for (int gen = 0; gen < _generationNumber; gen++)
+            maxfitnessGA = new double[(int)generationNumber];
+            meanfitnessGA = new double[(int)generationNumber];
+
+            fitness.Evaluationkike(features);
+            for (int gen = 1; gen <= generationNumber; gen++)
             {
-                RouletteWheelSelection();
-                Crossover();
-                Mutation();
-                fitness.Evaluation(features.population);
-                maxFitnessRecord[gen] = features.bestFeature[0];
+                RouletteWheelSelectionKike();
+                Crossoverkike();
+                Mutationkike();
+                fitness.Evaluationkike(features);
+
+                maxfitnessGA[gen-1] = features.bestFeature[0];
+                meanfitnessGA[gen-1] = fitness.meanFitnesss;
             }
+
+
         }
     }
 }
