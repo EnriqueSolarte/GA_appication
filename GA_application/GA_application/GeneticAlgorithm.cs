@@ -38,7 +38,7 @@ namespace GA_application
             // kike Constructor
             features = new Features(populationSize, rangeOfFeatures);
             fitness = new Fitness(50000, (int)features.populationSize, yTarget);
-
+            rangeOfMeasurement = xTarget;
             fitness.function = new Function(xTarget);
         }
 
@@ -140,7 +140,9 @@ namespace GA_application
             maxFitnessGA = new double[(int)generationNumber];
             meanFitnessGA = new double[(int)generationNumber];
             maxErrorGA = new double[(int)generationNumber];
-            double[] aux = new double[features.bestFeature.GetLength(0)];
+            double[] aux = new double[features.bestFeature.GetLength(0)-1];
+
+            bestFeaturesGA = new double[(int)generationNumber][] ;
 
             fitness.Evaluation(features.population);
             for (int gen = 1; gen <= generationNumber; gen++)
@@ -160,8 +162,8 @@ namespace GA_application
                 bestFeaturesGA[gen - 1] = aux;
             }
             //evaluation
-            evaluationGA = fitness.function.Evaluation(bestFeaturesGA[(int)generationNumber]);
-            results = new Results(maxFitnessGA, meanFitnessGA, maxErrorGA, bestFeaturesGA, evaluationGA);
+            evaluationGA = fitness.function.Evaluation(bestFeaturesGA[(int)generationNumber-1]);
+            results = new Results(maxFitnessGA, meanFitnessGA, maxErrorGA, bestFeaturesGA, evaluationGA,rangeOfMeasurement);
         }
     }
 }
