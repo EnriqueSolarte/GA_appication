@@ -21,11 +21,6 @@ namespace GA_application
             xVar = _xVar;                       
         }
 
-        public Function()
-        {
-
-        }
-
         public double[] EvaluationJagged(double[] _feature)
         {
             features = _feature;
@@ -38,9 +33,6 @@ namespace GA_application
            return yVar;
         }
 
-        public double[,] Evaluation(double[] feature)
-        {
-            return new double[1, 1];
-        }
+       
     }
 }

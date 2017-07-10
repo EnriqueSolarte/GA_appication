@@ -23,12 +23,12 @@ namespace GA_application
         public double[,] target { set; get; }
 
 
-        public Fitness(int _constantFitness, double[,] _target)
-        {
-            constantFitness = _constantFitness;
-            target = _target;
-            function = new Function();
-        }
+        //public Fitness(int _constantFitness, double[,] _target)
+        //{
+        //    constantFitness = _constantFitness;
+        //    target = _target;
+        //    function = new Function();
+        //}
 
         public Fitness(int _constantFitness, int _populationSize, double[] _targetFunction)
         {

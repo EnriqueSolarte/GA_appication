@@ -20,13 +20,7 @@ namespace GA_application
         public double[] meanfitnessGA { get; set; }
 
         
-        public GeneticAlgorithm(int population, double[,] rangeOfFeatures, double[,] target)
-        {
-            features = new Features(population, rangeOfFeatures);
-            fitness = new Fitness(300, target);
-        }
-
-        public GeneticAlgorithm(int populationSize, double[,] rangeOfFeatures, double[] xTarget, double[] yTarget)
+       public GeneticAlgorithm(int populationSize, double[,] rangeOfFeatures, double[] xTarget, double[] yTarget)
         {
             // kike Constructor
             features = new Features(populationSize, rangeOfFeatures);
