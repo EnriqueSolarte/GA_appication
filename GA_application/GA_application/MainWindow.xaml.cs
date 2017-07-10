@@ -128,28 +128,36 @@ namespace GA_application
         }
 
 
-
-
-
-
-
         public void Optimization()
         {
-            double[,] rangeFeatures = new double[,] { { 0, 20 }, { 5, 50 }, { -5, 20 }, { 0, 3.5 } };
-            double[] rangeMeasurement = new double[] { 1, 2, 3, 4, 5,6,7,8,9,10 };
+            double[,] rangeFeatures = new double[,] { { 1, 20 }, { 5, 50 }, {1, 20 }, { 0.001, 3.5 } };
+
+            double[] rangeMeasurement = new double[100];
+
+            double aux = 0;
+            for(int i=0; i< rangeMeasurement.Length; i++)
+            {
+                rangeMeasurement[i] = aux + 0.1;
+                aux = rangeMeasurement[i];
+            }
 
             Function evalTarget = new Function(rangeMeasurement);
             double[,] result = evalTarget.Evaluation(new double[] { 12, 12, 10.5, 0.01 });
 
-            //Population, rangeFeatures, result, rangeMeasuremet
-            GA_1 = new GeneticAlgorithm(1000, rangeFeatures, result, rangeMeasurement);
-            //Generation, Pcrossover, Pmutation
-            GA_1.Run(50, 0.9, 0.01);
+            ////Population, rangeFeatures, result, rangeMeasuremet
+            //GA_1 = new GeneticAlgorithm(100, rangeFeatures, result, rangeMeasurement);
+            ////Generation, Pcrossover, Pmutation
+            //GA_1.Run(300, 0.9, 0.1);
 
-            //double[] xVar = new double[] { 1, 2, 3, 4, 5 };
-            //double[] yVar = new double[] { result[0, 1], result[1, 1], result[2, 1], result[3, 1], result[4, 1] };
-            //GA_1 = new GeneticAlgorithm(100, new double[,] { { 0, 15 }, { 5, 15 }, { 0, 1 }, { 0, 0.1 } }, xVar, yVar);
-            //GA_1.Run(300, 0.9, 0.01);
+            double[] xVar = rangeMeasurement;
+            double[] yVar = new double[rangeMeasurement.Length];
+            for (int i = 0; i < rangeMeasurement.Length; i++)
+            {
+                yVar[i] = result[i, 1];
+            }
+
+            GA_1 = new GeneticAlgorithm(1000, rangeFeatures, xVar, yVar);
+            GA_1.Run(500, 0.9, 0.4);
         }
     }
 

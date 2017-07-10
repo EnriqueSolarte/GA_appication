@@ -30,12 +30,11 @@ namespace GA_application
       
         public double[,] Evaluation(double[] _feature)
         {
-            
-
+          
             for (int i = 0;i<xVar.Length;i++)
             {
                 DependentVariables[i, 0] = xVar[i];
-                DependentVariables[i, 1] = _feature[0] * xVar[i]+3* _feature[1]* xVar[i]* xVar[i] - 5* _feature[2]*_feature[3];
+                DependentVariables[i, 1] = _feature[0] * Math.Sin(xVar[i]+3* _feature[1]* xVar[i]* xVar[i]) - 5*Math.Log(_feature[2]* xVar[i] + _feature[3]);
             }
             
             return DependentVariables;

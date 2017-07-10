@@ -137,30 +137,45 @@ namespace GA_application
             pMutation = _pMutation;
             generationNumber = generations;
 
-            maxFitnessGA = new double[(int)generationNumber];
-            meanFitnessGA = new double[(int)generationNumber];
-            maxErrorGA = new double[(int)generationNumber];
+            maxFitnessGA = new double[(int)generationNumber+1];
+            meanFitnessGA = new double[(int)generationNumber+1];
+            maxErrorGA = new double[(int)generationNumber+1];
             double[] aux = new double[features.bestFeature.GetLength(0)-1];
 
-            bestFeaturesGA = new double[(int)generationNumber][] ;
+            bestFeaturesGA = new double[(int)generationNumber+1][] ;
 
             fitness.Evaluation(features.population);
             for (int gen = 1; gen <= generationNumber; gen++)
             {
+              
                 RouletteWheelSelection();
-                Crossover();
-                Mutation();
                 fitness.Evaluation(features.population);
-
-                maxFitnessGA[gen-1] = features.bestFeature[0];
-                meanFitnessGA[gen-1] = fitness.meanFitnesss;
+                maxFitnessGA[gen - 1] = features.bestFeature[0];
+                meanFitnessGA[gen - 1] = fitness.meanFitnesss;
                 maxErrorGA[gen - 1] = fitness.maxError;
-                for(int i=1;i<features.bestFeature.GetLength(0);i++)
+
+                for (int i = 1; i < features.bestFeature.GetLength(0); i++)
                 {
                     aux[i - 1] = features.bestFeature[i];
                 }
                 bestFeaturesGA[gen - 1] = aux;
+
+                Crossover();
+                Mutation();
+                RouletteWheelSelection();
+                fitness.Evaluation(features.population);           
             }
+
+            maxFitnessGA[(int)generationNumber] = features.bestFeature[0];
+            meanFitnessGA[(int)generationNumber] = fitness.meanFitnesss;
+            maxErrorGA[(int)generationNumber] = fitness.maxError;
+
+            for (int i = 1; i < features.bestFeature.GetLength(0); i++)
+            {
+                aux[i - 1] = features.bestFeature[i];
+            }
+            bestFeaturesGA[(int)generationNumber] = aux;
+
             //evaluation
             evaluationGA = fitness.function.Evaluation(bestFeaturesGA[(int)generationNumber-1]);
             results = new Results(maxFitnessGA, meanFitnessGA, maxErrorGA, bestFeaturesGA, evaluationGA,rangeOfMeasurement);

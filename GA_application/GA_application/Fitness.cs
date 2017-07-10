@@ -57,7 +57,8 @@ namespace GA_application
         }
 
         public void Evaluation(double[,] population)
-        {         
+        {
+           
             populationError = new double[population.GetLength(0)];
             fitnessValue = new double[population.GetLength(0)];
             for (int i =0; i< population.GetLength(0); i++ )
@@ -73,7 +74,6 @@ namespace GA_application
                 
                 //Evaluation of the current feature
                 double[,] result = function.Evaluation(currentFeature);
-
             
                 for (int j = 0; j < result.GetLength(0); j++)
                 {
@@ -84,23 +84,17 @@ namespace GA_application
                     else
                     {
                         chromosomeError[j] = Math.Abs(yTarget[j] - result[j, 1]);
-                    }
-
-                                         
+                    }                          
                 }
-
 
                 double sumError = chromosomeError.Sum();
                 populationError[i] = sumError; // gotten Error for each feature
                 fitnessValue[i] = constantFitness / sumError; // fitness to current feature
-                
             }
-
-            maxFitness = GetMaxFitness()[0];
-            maxFitnessIndex = GetMaxFitness()[1];
+            GetMaxFitness();
             meanFitnesss = fitnessValue.Sum() / fitnessValue.Length;
             sumatoryFitness = fitnessValue.Sum();
-            maxError = populationError[(int)GetMaxFitness()[1]];
+            maxError = populationError[(int)maxFitnessIndex];
         }
       
 
