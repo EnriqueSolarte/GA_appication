@@ -39,7 +39,7 @@ namespace GA_application
             double[] yVar = new double[] {-11.8913,    3.0859,   11.2118, - 5.7323, - 9.3638,    8.7127,    7.9661, - 9.6261, - 4.0388,   12.5070};
 
                      
-            GeneticAlgorithmKike GA_2 = new GeneticAlgorithmKike(100, new double[,] { { 0, 15 }, { 5, 15 }, { 0, 1 } }, xVar, yVar);
+            GeneticAlgorithm GA_2 = new GeneticAlgorithm(100, new double[,] { { 0, 15 }, { 5, 15 }, { 0, 1 } }, xVar, yVar);
 
             GA_2.Run(500,0.9,0.05);
             

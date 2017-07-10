@@ -55,7 +55,7 @@ namespace GA_application
             return result;
 
         }
- public void Evaluation(Features _features)
+        public void Evaluation(Features _features)
         {         
             populationError = new double[_features.population.GetLength(0)];
             fitnessValue = new double[_features.population.GetLength(0)];
@@ -69,7 +69,7 @@ namespace GA_application
                     currentFeature[j] = _features.population[i, j];
                 }
                 
-                double[] result = function.Evaluationkike(currentFeature);
+                double[] result = function.SimpleEvaluation(currentFeature);
 
 
                 for (int j = 0; j < result.Length; j++)
@@ -84,8 +84,8 @@ namespace GA_application
                 
             }
 
-            maximoFitness = GetMaxFitness()[0];
-            indexMaximoFitness = GetMaxFitness()[1];
+            maxFitness = GetMaxFitness()[0];
+            maxFitnessIndex = GetMaxFitness()[1];
             meanFitnesss = fitnessValue.Sum() / fitnessValue.Length;
             sumatoryFitness = fitnessValue.Sum();
         }
@@ -104,12 +104,12 @@ namespace GA_application
                     feature[j] = population[i, j];
                 }
                 
-                double[,] result = function.Evaluationkike(feature);
+                double[,] result = function.Evaluation(feature);
 
                 for (int j = 0; j < result.GetLength(0); j++)
 
                 {
-                    error[j] = Math.Abs(targe[j,1] - result[j,1]);
+                    error[j] = Math.Abs(target[j,1] - result[j,1]);
                 }
                 double sumError = error.Sum();
 

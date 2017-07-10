@@ -19,7 +19,7 @@ namespace GA_application
         public Function(double[] _xVar)
         {
 
-            DependentVariables = new double[_x.Length,2];
+            DependentVariables = new double[_xVar.Length,2];
           
             xVar = new double[_xVar.Length];
             yVar = new double[_xVar.Length];
@@ -30,18 +30,18 @@ namespace GA_application
       
         public double[,] Evaluation(double[] _feature)
         {
-            double[] y = new double[IndependentVariable.Length];
+            double[] y = new double[xVar.Length];
 
-            for (int i = 0;i<IndependentVariable.Length;i++)
+            for (int i = 0;i<xVar.Length;i++)
             {
                 DependentVariables[i, 0] = xVar[i];
-                DependentVariables[i, 1] = feature[0] * xVar[i]+3*feature[1]* xVar[i]* xVar[i] - 5*feature[2]*feature[3];
+                DependentVariables[i, 1] = _feature[0] * xVar[i]+3* _feature[1]* xVar[i]* xVar[i] - 5* _feature[2]*_feature[3];
             }
             
             return DependentVariables;
         }
       
-         public double[] EvaluationKike(double[] _feature)
+         public double[] SimpleEvaluation(double[] _feature)
         {
             features = _feature;
 
