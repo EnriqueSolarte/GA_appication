@@ -5,19 +5,18 @@ namespace GA_application
     public class Fitness
     {
 
-        public Function function;
-        private double[] targetFucntion;
+        public  Function function;
+        private double[] yTarget;
         private double[] populationError;
-        double[] chromosomeError;
+        private double[] chromosomeError;
 
-        public double sumatoryFitness { get; set; }
+        private double sumatoryFitness { get; set; }
 
-        public double[] fitnessValue { get; set; }
+        private double[] fitnessValue { get; set; }
       
         public double meanFitnesss { get; set; }
-        public double[] errorValue { get; set; }
 
-        private double constantFitness { set; get; }
+        public double constantFitness { set; get; }
 
         public double[,] target { set; get; }
 
@@ -31,20 +30,20 @@ namespace GA_application
             constantFitness = _constantFitness;
             target = _target;
             function = new Function(_x);
+            chromosomeError = new double[_target.GetLength(0)];
         }
         
 
-        public Fitness(int _constantFitness, int _populationSize, double[] _targetFunction)
+        public Fitness(int _constantFitness, int _populationSize, double[] _yTargetFunction)
         {
             //Kike constructor
-            targetFucntion = _targetFunction;
+            yTarget = _yTargetFunction;
             constantFitness = _constantFitness;
-            fitnessValue = new double[_populationSize];
-            populationError = new double[_populationSize];
-            chromosomeError = new double[_targetFunction.Length];
+            chromosomeError = new double[_yTargetFunction.Length];
 
         }
 
+        
         public double[] GetMaxFitness()
         {
             
@@ -55,32 +54,44 @@ namespace GA_application
             return result;
 
         }
-        public void Evaluation(Features _features)
+
+        public void Evaluation(double[,] population)
         {         
-            populationError = new double[_features.population.GetLength(0)];
-            fitnessValue = new double[_features.population.GetLength(0)];
-            for (int i =0; i< _features.population.GetLength(0); i++ )
+            populationError = new double[population.GetLength(0)];
+            fitnessValue = new double[population.GetLength(0)];
+            for (int i =0; i< population.GetLength(0); i++ )
             {
 
-                double[] currentFeature = new double[_features.population.GetLength(1)];
-                for(int j=0; j < _features.population.GetLength(1); j++)
+                double[] currentFeature = new double[population.GetLength(1)];
+                // currentFeature: Get the current set of features into the population
+                for(int j=0; j < population.GetLength(1); j++)
 
                 {
-                    currentFeature[j] = _features.population[i, j];
+                    currentFeature[j] = population[i, j];
                 }
                 
-                double[] result = function.SimpleEvaluation(currentFeature);
+                //Evaluation of the current feature
+                double[,] result = function.Evaluation(currentFeature);
 
-
-                for (int j = 0; j < result.Length; j++)
+            
+                for (int j = 0; j < result.GetLength(0); j++)
                 {
-                    chromosomeError[j] = Math.Abs(targetFucntion[j] - result[j]);
+                    if (target != null)
+                    {
+                        chromosomeError[j] = Math.Abs(target[j, 1] - result[j, 1]);
+                    }
+                    else
+                    {
+                        chromosomeError[j] = Math.Abs(yTarget[j] - result[j, 1]);
+                    }
+
+                                         
                 }
 
 
                 double sumError = chromosomeError.Sum();
-                populationError[i] = sumError;
-                fitnessValue[i] = constantFitness / sumError;
+                populationError[i] = sumError; // gotten Error for each feature
+                fitnessValue[i] = constantFitness / sumError; // fitness to current feature
                 
             }
 
@@ -90,33 +101,6 @@ namespace GA_application
             sumatoryFitness = fitnessValue.Sum();
         }
       
-        public void Evaluation(double[,] population)
-        {
 
-            double[] error = new double[target.GetLength(0)];
-            fitnessValue = new double[population.GetLength(0)];
-            for (int i =0; i< population.GetLength(0); i++)
-            {
-                double[] feature = new double[population.GetLength(1)];
-                for(int j=0; j < population.GetLength(1); j++)
-
-                {
-                    feature[j] = population[i, j];
-                }
-                
-                double[,] result = function.Evaluation(feature);
-
-                for (int j = 0; j < result.GetLength(0); j++)
-
-                {
-                    error[j] = Math.Abs(target[j,1] - result[j,1]);
-                }
-                double sumError = error.Sum();
-
-                fitnessValue[i] = constantFitness / sumError;
-                
-            }
-            sumatoryFitness = fitnessValue.Sum();
-        }
     }
 }

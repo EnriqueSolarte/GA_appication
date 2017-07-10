@@ -9,17 +9,18 @@ namespace GA_application
     class GeneticAlgorithm
     {
         
-        private Features features { get; set; }
-        private Fitness fitness { get; set; }
+        public  Features features { get; set; }
+        public Fitness fitness { get; set; }
 
         private double pCrossover { get; set; }
         private double pMutation { get; set; }
         private double generationNumber{ get; set; }
      
-        public double[] rangeOfMeasurement { get; set; }
+        private double[] rangeOfMeasurement { get; set; }
 
         public double[] maxfitnessGA { get; set; }
         public double[] meanfitnessGA { get; set; }
+
 
         public GeneticAlgorithm(int population, double[,] rangeOfFeatures, double[,] target, double[] _rangeOfMeasurement)
         {
@@ -38,7 +39,7 @@ namespace GA_application
             fitness.function = new Function(xTarget);
         }
 
-        private void RouletteWheelSelectionKike()
+        private void RouletteWheelSelection()
         {
             Random rnd = new Random();
             double[,] selectedPopulation = new double[(int)features.populationSize,(int)features.numberFeatures];
@@ -68,13 +69,13 @@ namespace GA_application
             {
                 for (int ii = 0; ii < features.numberFeatures; ii++)
                 {
-                    selectedPopulation[0, ii] = features.population[(int)fitness.maxFitnessIndex-1, ii];
+                    selectedPopulation[0, ii] = features.population[(int)fitness.maxFitnessIndex, ii];
                 }
                 //it is also necessary to save the best feature in the bestFeature variable.
                 features.bestFeature[0] = fitness.maxFitness;
                 for (int ii = 1; ii < features.bestFeature.Length; ii++)
                 {
-                    features.bestFeature[ii]= features.population[(int)fitness.maxFitnessIndex-1, ii-1];
+                    features.bestFeature[ii]= features.population[(int)fitness.maxFitnessIndex, ii-1];
 
                 }
 
@@ -136,18 +137,17 @@ namespace GA_application
             maxfitnessGA = new double[(int)generationNumber];
             meanfitnessGA = new double[(int)generationNumber];
 
-            fitness.Evaluation(features);
+            fitness.Evaluation(features.population);
             for (int gen = 1; gen <= generationNumber; gen++)
             {
-                RouletteWheelSelectionKike();
+                RouletteWheelSelection();
                 Crossover();
                 Mutation();
-                fitness.Evaluation(features);
+                fitness.Evaluation(features.population);
 
                 maxfitnessGA[gen-1] = features.bestFeature[0];
                 meanfitnessGA[gen-1] = fitness.meanFitnesss;
             }
-
 
         }
     }

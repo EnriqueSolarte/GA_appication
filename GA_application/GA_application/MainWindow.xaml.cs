@@ -26,6 +26,7 @@ namespace GA_application
             double[] rangeMeasurement = new double[] { 1, 2, 3, 4, 5};
 
             Function evalTarget = new Function(rangeMeasurement);
+            Features f1, f2;
             double[,] result = evalTarget.Evaluation(new double[] { 12, 12, 10.5, 0.01 });
 
             //Population, rangeFeatures, result, rangeMeasuremet
@@ -34,17 +35,15 @@ namespace GA_application
             GA_1.Run(50,0.9,0.01);
 
 
-
-            double[] xVar = new double[] { 1, 2, 3, 4, 5 ,6, 7, 8, 9, 10};
-            double[] yVar = new double[] {-11.8913,    3.0859,   11.2118, - 5.7323, - 9.3638,    8.7127,    7.9661, - 9.6261, - 4.0388,   12.5070};
+            double[] xVar = new double[] { 1, 2, 3, 4, 5};
+            double[] yVar = new double[] {result[0,1], result[1, 1], result[2, 1], result[3, 1], result[4, 1] };
 
                      
-            GeneticAlgorithm GA_2 = new GeneticAlgorithm(100, new double[,] { { 0, 15 }, { 5, 15 }, { 0, 1 } }, xVar, yVar);
+            GeneticAlgorithm GA_2 = new GeneticAlgorithm(100, new double[,] { { 0, 15 }, { 5, 15 }, { 0, 1 }, {0, 0.1 } }, xVar, yVar);
 
-            GA_2.Run(500,0.9,0.05);
+            GA_2.Run(300,0.9,0.01);
             
-            
-
+      
         }
     }
 

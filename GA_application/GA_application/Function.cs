@@ -30,7 +30,7 @@ namespace GA_application
       
         public double[,] Evaluation(double[] _feature)
         {
-            double[] y = new double[xVar.Length];
+            
 
             for (int i = 0;i<xVar.Length;i++)
             {
@@ -39,18 +39,6 @@ namespace GA_application
             }
             
             return DependentVariables;
-        }
-      
-         public double[] SimpleEvaluation(double[] _feature)
-        {
-            features = _feature;
-
-            for (int i = 0; i < xVar.GetLength(0); i++)
-            {
-               yVar[i] =  _feature[1]*Math.Sin(xVar[i] *3* _feature[0]) +  xVar[i] * xVar[i] * _feature[2];
-            }
-
-           return yVar;
         }
 
        
