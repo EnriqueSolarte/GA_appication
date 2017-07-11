@@ -140,7 +140,7 @@ namespace GA_application
             maxFitnessGA = new double[(int)generationNumber+1];
             meanFitnessGA = new double[(int)generationNumber+1];
             maxErrorGA = new double[(int)generationNumber+1];
-            double[] aux = new double[features.bestFeature.GetLength(0)-1];
+            double[] aux;
 
             bestFeaturesGA = new double[(int)generationNumber+1][] ;
 
@@ -154,6 +154,7 @@ namespace GA_application
                 meanFitnessGA[gen - 1] = fitness.meanFitnesss;
                 maxErrorGA[gen - 1] = fitness.maxError;
 
+                aux = new double[features.bestFeature.GetLength(0) - 1];
                 for (int i = 1; i < features.bestFeature.GetLength(0); i++)
                 {
                     aux[i - 1] = features.bestFeature[i];
@@ -167,9 +168,11 @@ namespace GA_application
             }
 
             maxFitnessGA[(int)generationNumber] = features.bestFeature[0];
-            meanFitnessGA[(int)generationNumber] = fitness.meanFitnesss;
+            //meanFitnessGA[(int)generationNumber] = fitness.meanFitnesss;
+            meanFitnessGA[(int)generationNumber] = meanFitnessGA[(int)generationNumber - 1];
             maxErrorGA[(int)generationNumber] = fitness.maxError;
 
+            aux = new double[features.bestFeature.GetLength(0) - 1];
             for (int i = 1; i < features.bestFeature.GetLength(0); i++)
             {
                 aux[i - 1] = features.bestFeature[i];
