@@ -27,7 +27,7 @@ namespace GA_application
             bestFeaturesGA = _bestFeaturesGA;
             evaluationGA = _evaluationGA;
 
-            generations = _bestFeaturesGA[0].Length;
+            generations = _bestFeaturesGA.Length;
             theBestFetureGA = _bestFeaturesGA[_bestFeaturesGA[0].Length];
             function = new Function(_rangeOfMeasurement);
         }

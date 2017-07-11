@@ -42,5 +42,14 @@
                 <lvc:Axis Title="Generations" Labels="{Binding labelsFitness}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
+        
+        <lvc:CartesianChart x:Name="D" Series="{Binding featuresGraph}" LegendLocation="Right" Margin="10" Grid.Row="1" >
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Features" LabelFormatter="{Binding YFormatterFeatures}"/>
+            </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Generations" Labels="{Binding labelsFeatures}"/>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
     </Grid>
 </Window>
