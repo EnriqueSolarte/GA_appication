@@ -264,7 +264,7 @@ namespace GA_application
 
                 new LineSeries
                 {
-                    Title = "Feature For",
+                    Title = "Feature Four",
                     Values = data9,
                     PointGeometry = null
                 }
