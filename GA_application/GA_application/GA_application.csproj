@@ -69,6 +69,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="InputGraph.cs" />
     <Compile Include="Features.cs" />
     <Compile Include="Fitness.cs" />
     <Compile Include="Results.cs" />

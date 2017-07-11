@@ -6,17 +6,19 @@
         xmlns:local="clr-namespace:GA_application"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="470.418" Width="800">
-    <Grid Margin="-2,0,2,0">
+        Title="MainWindow" Height="720" Width="1280
+        ">
+    <Grid Margin="10,0,10,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="110*"/>
             <RowDefinition Height="110*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="17*"/>
-            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="248*"/>
+            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="400*"/>
         </Grid.ColumnDefinitions>
-        <lvc:CartesianChart Name="A" Series="{Binding functionGraph}" LegendLocation="Right" Margin="10" >
+        <lvc:CartesianChart Name="A" Series="{Binding functionGraph}" LegendLocation="Right" Margin="10,10,10,10" Grid.Column="1" >
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Value Y" LabelFormatter="{Binding YFormatterFunction}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
@@ -25,7 +27,7 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
-        <lvc:CartesianChart Name="B" Series="{Binding errorGraph}" LegendLocation="Right" Margin="10,10,10,10" Grid.Column="1" >
+        <lvc:CartesianChart Name="B" Series="{Binding errorGraph}" LegendLocation="Right" Margin="10,10,10,10" Grid.Column="2" >
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Error" LabelFormatter="{Binding YFormatterError}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
@@ -34,7 +36,7 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
-        <lvc:CartesianChart Name="C" Series="{Binding fitnessGraph}" LegendLocation="Right" Margin="10,10,10,10" Grid.Column="1" Grid.Row="1" >
+        <lvc:CartesianChart Name="C" Series="{Binding fitnessGraph}" LegendLocation="Right" Margin="10,10,10,10" Grid.Column="2" Grid.Row="1" >
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Fitness" LabelFormatter="{Binding YFormatterFitness}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
@@ -42,8 +44,8 @@
                 <lvc:Axis Title="Generations" Labels="{Binding labelsFitness}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        
-        <lvc:CartesianChart x:Name="D" Series="{Binding featuresGraph}" LegendLocation="Right" Margin="10" Grid.Row="1" >
+
+        <lvc:CartesianChart x:Name="D" Series="{Binding featuresGraph}" LegendLocation="Right" Margin="10,10,10,10" Grid.Row="1" Grid.Column="1" >
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Features" LabelFormatter="{Binding YFormatterFeatures}"/>
             </lvc:CartesianChart.AxisY>
@@ -51,5 +53,37 @@
                 <lvc:Axis Title="Generations" Labels="{Binding labelsFeatures}"/>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
+        <Label Content="Generations" HorizontalAlignment="Left" Margin="8,51,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Population" HorizontalAlignment="Left" Margin="8,91,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Crossover Prob." HorizontalAlignment="Left" Margin="8,131,0,0" VerticalAlignment="Top" Height="40" Width="157" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Mutation Prob." HorizontalAlignment="Left" Margin="8,171,0,0" VerticalAlignment="Top" Height="40" Width="157" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Ranges" HorizontalAlignment="Left" Margin="8,211,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="TextBoxGeneration" HorizontalAlignment="Left" Height="40" Margin="165,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.489,0.7" FontSize="20" Text="100"/>
+        <TextBox x:Name="TextBoxPopulation" HorizontalAlignment="Left" Height="40" Margin="165,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.489,0.7" FontSize="20" Text="100"/>
+        <TextBox x:Name="TextBoxCrossover" HorizontalAlignment="Left" Height="40" Margin="165,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.489,0.7" FontSize="20" Text="0.9"/>
+        <TextBox x:Name="TextBoxMutation" HorizontalAlignment="Left" Height="40" Margin="165,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.489,0.7" FontSize="20" Text="0.9"/>
+        <Label Content="Feature A" HorizontalAlignment="Left" Margin="44,245,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Min" HorizontalAlignment="Left" Margin="8,285,0,0" VerticalAlignment="Top" Height="40" Width="50" FontSize="20"/>
+        <Label Content="Max" HorizontalAlignment="Left" Margin="148,285,0,0" VerticalAlignment="Top" Height="40" Width="50" FontSize="20" RenderTransformOrigin="0.88,0.425"/>
+        <TextBox x:Name="TextBoxAMin" HorizontalAlignment="Left" Height="40" Margin="58,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90
+                 " RenderTransformOrigin="0.51,0.5" FontSize="20" Text="10"/>
+        <TextBox x:Name="TextBoxAMax" HorizontalAlignment="Left" Height="40" Margin="192,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.489,0.7" FontSize="20" Text="14"/>
+        <Label Content="Feature B" HorizontalAlignment="Left" Margin="44,325,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" Grid.RowSpan="2" FontWeight="Bold"/>
+        <Label Content="Min" HorizontalAlignment="Left" Margin="8,23,0,0" VerticalAlignment="Top" Height="40" Width="50" FontSize="20" Grid.Row="1"/>
+        <Label Content="Max" HorizontalAlignment="Left" Margin="148,25,0,0" VerticalAlignment="Top" Height="40" Width="50" FontSize="20" RenderTransformOrigin="0.88,0.425" Grid.Row="1"/>
+        <TextBox x:Name="TextBoxBMin" HorizontalAlignment="Left" Height="40" Margin="58,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90                  " RenderTransformOrigin="0.51,0.5" FontSize="20" Grid.Row="1" Text="10"/>
+        <TextBox x:Name="TextBoxBMax" HorizontalAlignment="Left" Height="40" Margin="192,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.489,0.7" FontSize="20" Grid.Row="1" Text="14"/>
+        <Label Content="Feature C" HorizontalAlignment="Left" Margin="44,63,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" Grid.Row="1" FontWeight="Bold"/>
+        <Label Content="Min" HorizontalAlignment="Left" Margin="8,97,0,0" VerticalAlignment="Top" Height="40" Width="50" FontSize="20" Grid.Row="1"/>
+        <Label Content="Max" HorizontalAlignment="Left" Margin="148,97,0,0" VerticalAlignment="Top" Height="40" Width="50" FontSize="20" RenderTransformOrigin="0.88,0.425" Grid.Row="1"/>
+        <TextBox x:Name="TextBoxCMin" HorizontalAlignment="Left" Height="40" Margin="58,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90                  " RenderTransformOrigin="0.51,0.5" FontSize="20" Grid.Row="1" Text="8"/>
+        <TextBox x:Name="TextBoxCMax" HorizontalAlignment="Left" Height="40" Margin="194,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.489,0.7" FontSize="20" Grid.Row="1" Text="12"/>
+        <Label Content="Feature D" HorizontalAlignment="Left" Margin="44,137,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" Grid.Row="1" FontWeight="Bold"/>
+        <Label Content="Min" HorizontalAlignment="Left" Margin="8,171,0,0" VerticalAlignment="Top" Height="40" Width="50" FontSize="20" Grid.Row="1"/>
+        <Label Content="Max" HorizontalAlignment="Left" Margin="148,171,0,0" VerticalAlignment="Top" Height="40" Width="50" FontSize="20" RenderTransformOrigin="0.88,0.425" Grid.Row="1"/>
+        <TextBox x:Name="TextBoxDMin" HorizontalAlignment="Left" Height="40" Margin="58,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90                  " RenderTransformOrigin="0.51,0.5" FontSize="20" Grid.Row="1" Text="0.01"/>
+        <TextBox x:Name="TextBoxDMax" HorizontalAlignment="Left" Height="40" Margin="192,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.489,0.7" FontSize="20" Grid.Row="1" Text="1"/>
+        <Label Content="&#x9;SETTINGS" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" Height="40" Width="274" FontSize="20" FontWeight="Bold"/>
+        <Button Content="OPTIMIZE" HorizontalAlignment="Left" Margin="172,240,0,0" Grid.Row="1" VerticalAlignment="Top" Width="106" RenderTransformOrigin="-0.74,-0.841" Height="46" FontSize="20" Click="Button_Click"/>
     </Grid>
 </Window>
