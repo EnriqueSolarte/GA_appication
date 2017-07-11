@@ -25,8 +25,10 @@ namespace GA_application
 
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        //Genetic algorithm object
         GeneticAlgorithm GA { get; set; }
 
+        #region plotting data
         public SeriesCollection functionGraph { get; set; }
         public string[] labelsFunction { get; set; }
         public Func<double, string> YFormatterFunction { get; set; }
@@ -43,20 +45,22 @@ namespace GA_application
         public string[] labelFeatures { get; set; }
         public Func<double, string> YFormatterFeatures { get; set; }
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+        
+        //Main body
         public MainWindow()
         {
             InitializeComponent();
             
         }
-        public event PropertyChangedEventHandler PropertyChanged;
 
+        //AMin Functions
         protected virtual void OnPropertyChanged(string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-
         public Results Optimization(InputGraph _data)
         {
             //double[,] rangeFeatures = new double[,] { { 10, 15 }, { 10, 15 }, { 8, 15 }, { 0.005, 1 } };
@@ -300,13 +304,13 @@ namespace GA_application
 
             DataContext = this;
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             InputGraph data = new InputGraph();
             data = ReadData();
             Optimization(data);
             DrawGraph();
-            
         }
 
     }
